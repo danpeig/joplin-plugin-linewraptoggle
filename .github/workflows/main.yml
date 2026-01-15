@@ -1,9 +1,8 @@
-name: Build and Release Joplin Plugin
+name: Manual Release Build
 
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]   # Runs when you manually publish a release in GitHub
 
 jobs:
   build:
@@ -24,27 +23,11 @@ jobs:
       - name: Build plugin
         run: npm run dist
 
-      - name: Upload artifact
+      - name: Upload JPL artifact
         uses: actions/upload-artifact@v3
         with:
           name: joplin-plugin
           path: dist/*.jpl
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: joplin-plugin
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: dist/*.jpl
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-npm:
     needs: build
