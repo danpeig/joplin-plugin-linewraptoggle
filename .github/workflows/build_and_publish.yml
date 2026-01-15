@@ -2,7 +2,7 @@ name: Build and publish
 
 on:
   release:
-    types: [published]   # Runs when you manually publish a release in GitHub
+    types: [created] 
 
 jobs:
   build:
