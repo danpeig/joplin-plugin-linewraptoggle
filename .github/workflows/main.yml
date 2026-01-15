@@ -1,14 +1,13 @@
-name: Build Joplin Plugin
+name: Build and Release Joplin Plugin
 
 on:
   push:
     tags:
-      - 'v*'   # Runs when you push a version tag like v1.0.0
+      - 'v*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -17,6 +16,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          registry-url: 'https://registry.npmjs.org/'
 
       - name: Install dependencies
         run: npm install
@@ -45,3 +45,27 @@ jobs:
           files: dist/*.jpl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build plugin
+        run: npm run dist
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
