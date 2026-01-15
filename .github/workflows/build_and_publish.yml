@@ -1,4 +1,4 @@
-name: Manual Release Build
+name: Build and publish
 
 on:
   release:
@@ -34,16 +34,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org/'
 
       - name: Install dependencies
         run: npm install
+
+      - name: Update dependencies
+        run: npm ci
 
       - name: Build plugin
         run: npm run dist
