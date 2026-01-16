@@ -20,13 +20,14 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 
 ## Compatibility
 
-- **Joplin Version**: 2.13.0 or later
-- **CodeMirror**: Version 6 (default since Joplin 3.1.x)
+- **Joplin Version**: 3.2 or later
+- **CodeMirror**: Version 6 (default since Joplin 3.2)
 - **Platforms**: Desktop (Windows, macOS, Linux), Android, iOS
 
 ## Version History
 
-- **0.1** - Initial release
+- **0.1 (16/01/2025)**
+    - Initial release
 
 ## How It Works
 
