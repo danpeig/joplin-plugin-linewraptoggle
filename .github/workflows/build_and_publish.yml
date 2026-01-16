@@ -2,7 +2,7 @@ name: Build and publish
 
 on:
   release:
-    types: [created] 
+    types: [created]
 
 jobs:
   build:
@@ -18,10 +18,30 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build plugin
         run: npm run dist
+
+      - name: Find JPL file
+        id: find_jpl
+        run: |
+          file=$(ls dist/*.jpl | head -n1)
+          if [ -z "$file" ]; then
+            echo "No .jpl file found in dist/ — failing"
+            exit 1
+          fi
+          echo "file=$file" >> "$GITHUB_OUTPUT"
+
+      - name: Upload JPL to GitHub release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ steps.find_jpl.outputs.file }}
+          asset_name: joplin-plugin.jpl
+          asset_content_type: application/octet-stream
 
       - name: Upload JPL artifact
         uses: actions/upload-artifact@v4
@@ -43,9 +63,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Update dependencies
         run: npm ci
 
       - name: Build plugin
