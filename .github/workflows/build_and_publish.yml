@@ -23,25 +23,12 @@ jobs:
       - name: Build plugin
         run: npm run dist
 
-      - name: Find JPL file
-        id: find_jpl
-        run: |
-          file=$(ls dist/*.jpl | head -n1)
-          if [ -z "$file" ]; then
-            echo "No .jpl file found in dist/ — failing"
-            exit 1
-          fi
-          echo "file=$file" >> "$GITHUB_OUTPUT"
-
       - name: Upload JPL to GitHub release
-        uses: actions/upload-release-asset@v1
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.jpl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ steps.find_jpl.outputs.file }}
-          asset_name: joplin-plugin.jpl
-          asset_content_type: application/octet-stream
 
       - name: Upload JPL artifact
         uses: actions/upload-artifact@v4
