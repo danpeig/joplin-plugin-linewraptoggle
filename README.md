@@ -89,7 +89,7 @@ This plugin was cpartially coded with the help of Claude Opus 4.5 and GPT 5.1 Co
 
 ## Author
 
-Daniel BP (daniel@danbp.org)
+Daniel BP
 
 ## Development
 
