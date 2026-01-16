@@ -1,4 +1,4 @@
-# Line wrap toggle for Joplin
+# Line wrap toggle plugin for Joplin
 
 A Joplin plugin that provides simple control over line wrapping behavior in markdown editors and the note viewer. You will probably want it if you use Joplin for code snippets, markdown tables, ASCII diagrams, long lines, or just prefer horizontal scrolling.
 
