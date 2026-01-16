@@ -1,0 +1,11 @@
+src/
+tsconfig.json
+webpack.config.js
+plugin.config.json
+.git/
+.gitignore
+.vscode/
+instructions.md
+CLAUDE.md
+node_modules/
+*.tgz

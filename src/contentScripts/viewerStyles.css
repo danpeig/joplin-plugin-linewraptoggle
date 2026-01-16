@@ -1,0 +1,64 @@
+/* Line wrap toggle - Viewer Styles */
+
+/* When line wrap is disabled in the viewer */
+body[data-linewrap-disabled="true"]:not(.main-window) {
+	overflow-x: auto !important;
+}
+
+/* Disable wrapping on text content elements */
+body[data-linewrap-disabled="true"]:not(.main-window) p,
+body[data-linewrap-disabled="true"]:not(.main-window) h1,
+body[data-linewrap-disabled="true"]:not(.main-window) h2,
+body[data-linewrap-disabled="true"]:not(.main-window) h3,
+body[data-linewrap-disabled="true"]:not(.main-window) h4,
+body[data-linewrap-disabled="true"]:not(.main-window) h5,
+body[data-linewrap-disabled="true"]:not(.main-window) h6,
+body[data-linewrap-disabled="true"]:not(.main-window) li,
+body[data-linewrap-disabled="true"]:not(.main-window) td,
+body[data-linewrap-disabled="true"]:not(.main-window) th,
+body[data-linewrap-disabled="true"]:not(.main-window) blockquote {
+	white-space: nowrap !important;
+	word-wrap: normal !important;
+	overflow-wrap: normal !important;
+}
+
+/* Code blocks - expand to content width, no internal scrollbars */
+body[data-linewrap-disabled="true"]:not(.main-window) pre {
+	white-space: pre !important;
+	word-wrap: normal !important;
+	overflow: visible !important;
+	width: max-content !important;
+	min-width: 100% !important;
+	max-width: none !important;
+}
+
+/* Highlighted code blocks (hljs) - same treatment */
+body[data-linewrap-disabled="true"]:not(.main-window) pre.hljs,
+body[data-linewrap-disabled="true"]:not(.main-window) pre code.hljs {
+	overflow: visible !important;
+	width: max-content !important;
+	min-width: 100% !important;
+	max-width: none !important;
+}
+
+/* Inline code */
+body[data-linewrap-disabled="true"]:not(.main-window) code {
+	white-space: pre !important;
+	word-wrap: normal !important;
+}
+
+/* Table wrapper - expand to content width, no internal scrollbars */
+body[data-linewrap-disabled="true"]:not(.main-window) .joplin-table-wrapper {
+	overflow: visible !important;
+	width: max-content !important;
+	min-width: 100% !important;
+	max-width: none !important;
+}
+
+/* Ensure layout elements are not affected */
+body[data-linewrap-disabled] .resizableLayoutItem,
+body[data-linewrap-disabled] .rli-root,
+body[data-linewrap-disabled] iframe {
+	white-space: normal !important;
+	overflow: visible !important;
+}

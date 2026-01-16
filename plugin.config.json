@@ -1,0 +1,6 @@
+{
+  "extraScripts": [
+    "contentScripts/codeMirrorPlugin",
+    "contentScripts/viewerPlugin"
+  ]
+}

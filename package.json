@@ -1,0 +1,42 @@
+{
+  "name": "joplin-plugin-linewraptoggle",
+  "version": "0.1.0",
+  "description": "Enable or disable line wrap in the editors, the viewers or just inside code blocks",
+  "keywords": [
+    "joplin-plugin",
+    "toggle",
+    "line wrap",
+    "codemirror"
+  ],
+  "homepage": "https://github.com/danpeig/joplin-plugin-linewraptoggle",
+  "bugs": {
+    "url": "https://github.com/danpeig/joplin-plugin-linewraptoggle/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danpeig/joplin-plugin-linewraptoggle.git"
+  },
+  "license": "AGPL-3.0-or-later",
+  "author": "Daniel BP <daniel@danbp.org>",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "dist": "webpack --mode production",
+    "prepare": "npm run dist"
+  },
+  "dependencies": {
+    "@codemirror/state": "^6.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.3",
+    "chalk": "^4.1.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.3.10",
+    "tar": "^6.2.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
