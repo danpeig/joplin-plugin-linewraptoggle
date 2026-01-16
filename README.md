@@ -6,7 +6,7 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 ## Features
 
 - Toggle line wrap on/off with a single click
-- Toolbar button for quick access (optional): <img src="res/turn-down-solid-full.svg" alt="button icon" width="24px" style="background:white; border:2px solid black; padding:0px;" />
+- Toolbar button for quick access (optional): <img src="res/turn-down-solid-full.svg" alt="button icon" width="24px"/>
 - Tools menu integration
 - The plugin does not modify note content - all styling is applied externally
 - Separate control for markdown editor and viewer
