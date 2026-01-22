@@ -1,5 +1,22 @@
 /* Line wrap toggle - Viewer Styles */
 
+/* Add right padding when line wrap is enabled to prevent text from touching edge */
+body:not(.main-window):not([data-linewrap-disabled="true"]) p,
+body:not(.main-window):not([data-linewrap-disabled="true"]) h1,
+body:not(.main-window):not([data-linewrap-disabled="true"]) h2,
+body:not(.main-window):not([data-linewrap-disabled="true"]) h3,
+body:not(.main-window):not([data-linewrap-disabled="true"]) h4,
+body:not(.main-window):not([data-linewrap-disabled="true"]) h5,
+body:not(.main-window):not([data-linewrap-disabled="true"]) h6,
+body:not(.main-window):not([data-linewrap-disabled="true"]) li,
+body:not(.main-window):not([data-linewrap-disabled="true"]) ul,
+body:not(.main-window):not([data-linewrap-disabled="true"]) ol,
+body:not(.main-window):not([data-linewrap-disabled="true"]) blockquote,
+body:not(.main-window):not([data-linewrap-disabled="true"]) pre,
+body:not(.main-window):not([data-linewrap-disabled="true"]) table {
+	padding-right: 20px !important;
+}
+
 /* When line wrap is disabled in the viewer */
 body[data-linewrap-disabled="true"]:not(.main-window) {
 	overflow-x: auto !important;
