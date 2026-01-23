@@ -127,5 +127,6 @@ npm run dist
 ## Links
 
 - Repository: https://github.com/danpeig/joplin-plugin-linewraptoggle
+- NPM: https://www.npmjs.com/package/joplin-plugin-linewraptoggle
 - Homepage: https://github.com/danpeig/joplin-plugin-linewraptoggle
 - Issues: https://github.com/danpeig/joplin-plugin-linewraptoggle/issues
