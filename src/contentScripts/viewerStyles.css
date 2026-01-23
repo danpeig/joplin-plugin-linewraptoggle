@@ -5,6 +5,13 @@ body[data-linewrap-disabled="true"]:not(.main-window) {
 	overflow-x: auto !important;
 }
 
+/* Make rendered-md expand with content and add padding to create space from scrollbar */
+body[data-linewrap-disabled="true"]:not(.main-window) #rendered-md {
+	width: max-content !important;
+	padding-inline-end: 40px !important;
+	min-width: 100% !important;
+}
+
 /* Disable wrapping on text content elements */
 body[data-linewrap-disabled="true"]:not(.main-window) p,
 body[data-linewrap-disabled="true"]:not(.main-window) h1,
