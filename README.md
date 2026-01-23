@@ -26,6 +26,9 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 
 ## Version History
 
+- **0.2 (not released yet)**
+    - Added padding between the line end end the scroll bar in the editor
+
 - **0.1 (16/01/2025)**
     - Initial release
 

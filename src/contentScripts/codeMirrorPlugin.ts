@@ -62,6 +62,7 @@ function injectNoWrapStyles(): void {
 			overflow-wrap: normal !important;
 			word-break: normal !important;
 			box-sizing: border-box !important;
+			margin-inline-end: 20px !important;
 		}
 	`;
 
