@@ -24,10 +24,11 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 - **CodeMirror**: Version 6 (default since Joplin 3.2)
 - **Platforms**: Desktop (Windows, macOS, Linux), Android, iOS
 
-## Version History
+## Version history
 
-- **0.2 (not released yet)**
-    - Added padding between the line end end the scroll bar in the editor
+- **0.2 (23/01/2025)**
+    - Added padding at the end of the text for the editor
+    - Added padding at the end of the text for the viewer
 
 - **0.1 (16/01/2025)**
     - Initial release

@@ -1,6 +1,6 @@
 {
   "name": "joplin-plugin-linewraptoggle",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Enable or disable line wrap in the editors, the viewers or just inside code blocks",
   "keywords": [
     "joplin-plugin",
