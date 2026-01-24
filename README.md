@@ -39,13 +39,11 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 
 ## How It Works
 
-The plugin integrates with Joplin's CodeMirror 6 editor and uses message-based notifications to stay in sync with your settings. Each content script requests the initial configuration, then waits for changes.
-
 When line wrap is disabled, horizontal scrollbars are automatically enabled to allow viewing long lines.
 
 When line wrap is enabled, Joplin will behave exactly as if the plugin was never installed. It does nothing to the default line wrap mechanism.
 
-This plugin does not modify color schemes, fonts or any other visual styles.
+This plugin does not modify color schemes, fonts or any other visual styles or contents of the notes. It acts only on the viewer and editor panels.
 
 ## Installation
 
