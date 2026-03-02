@@ -26,15 +26,16 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 
 ## Version history
 
-- **1.0 (to be confirmed)**
-    - Will be released one month after latest 0.x release, if no bugs or issues are found.
+- **1.0 (02/03/2026)**
+    - First stable release
+    - Tested on Joplin Desktop 3.6.3 and Android 3.6.13
 
-- **0.2 (23/01/2025)**
+- **0.2 (23/01/2026)**
     - Added padding at the end of the text for the editor
     - Added padding at the end of the text for the viewer
     - Tested on Joplin Desktop 3.5.12, 3.6.2 and Android 3.5.9
 
-- **0.1 (16/01/2025)**
+- **0.1 (16/01/2026)**
     - Initial release
 
 ## How It Works
