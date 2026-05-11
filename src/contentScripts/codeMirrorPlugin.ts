@@ -55,7 +55,7 @@ function injectNoWrapStyles(): void {
 			width: max-content !important;
 		}
 
-		/* Lines - no wrap */
+		/* Lines */
 		.cm-line {
 			white-space: pre !important;
 			word-wrap: normal !important;
@@ -63,6 +63,15 @@ function injectNoWrapStyles(): void {
 			word-break: normal !important;
 			box-sizing: border-box !important;
 			margin-inline-end: 40px !important;
+		}
+
+		/* Tables cells */
+		.cm-tw-text {
+			white-space: pre !important;
+			word-wrap: normal !important;
+			overflow-wrap: normal !important;
+			word-break: normal !important;
+			box-sizing: border-box !important;
 		}
 	`;
 
