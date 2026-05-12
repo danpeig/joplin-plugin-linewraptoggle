@@ -65,7 +65,7 @@ function injectNoWrapStyles(): void {
 			margin-inline-end: 40px !important;
 		}
 
-		/* Tables cells */
+		/* Table cell */
 		.cm-tw-text {
 			white-space: pre !important;
 			word-wrap: normal !important;
