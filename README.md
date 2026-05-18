@@ -1,6 +1,9 @@
+<img src="res/logo.png" alt="Logo" width="128px" align="right"/>
+
 # Line wrap toggle plugin for Joplin
 
 A Joplin plugin that provides simple control over line wrapping behavior in markdown editors and the note viewer. You will probably want it if you use Joplin for code snippets, markdown tables, ASCII diagrams, long lines, or just prefer horizontal scrolling.
+
 
 ## Features
 
@@ -29,6 +32,7 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 
 - **1.1 (under development)**
     - Disable line wrap from rendered table cells in the new markdown editor (Joplin 3.7 new feature)
+    - New visual identity with a logo/icon
     - Tested on Joplin Desktop 3.7.1 and Android X.X.X
 
 - **1.0 (02/03/2026)**
