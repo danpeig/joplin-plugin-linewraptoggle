@@ -12,7 +12,7 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 - The plugin does not modify note content - all styling is applied externally
 - Separate control for markdown editor and viewer
 - State persists across Joplin sessions
-- Acts on tables and code blocks
+- Acts inside tables and code blocks
 - Cross-platform support (Desktop and Mobile)
 
 ## Limitations
