@@ -27,7 +27,8 @@
     "update": "npm install -g generator-joplin && yo joplin --node-package-manager npm --update --force"
   },
   "dependencies": {
-    "@codemirror/state": "^6.4.0"
+    "@codemirror/state": "^6.4.0",
+    "@codemirror/view": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.19.3",

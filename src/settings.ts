@@ -15,6 +15,7 @@ export interface PluginSettings {
 	[SettingKey.ShowToolbarButton]: boolean;
 }
 
+/** Registers the plugin's settings section and its individual setting items with Joplin. */
 export async function registerSettings(): Promise<void> {
 	await joplin.settings.registerSection(SETTING_SECTION, {
 		label: 'Line wrap toggle',
@@ -50,6 +51,7 @@ export async function registerSettings(): Promise<void> {
 	});
 }
 
+/** Reads the current value of every plugin setting from Joplin's settings store. */
 export async function getSettings(): Promise<PluginSettings> {
 	return {
 		[SettingKey.DisableInMarkdownEditor]: await joplin.settings.value(SettingKey.DisableInMarkdownEditor),

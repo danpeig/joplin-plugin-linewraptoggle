@@ -1,4 +1,5 @@
 import { Compartment } from '@codemirror/state';
+import { EditorView } from '@codemirror/view';
 
 interface ContentScriptContext {
 	contentScriptId: string;
@@ -9,84 +10,58 @@ interface PluginSettings {
 	disableInMarkdownEditor: boolean;
 }
 
-// Create a compartment for dynamic line wrap configuration
+// Compartment used to swap the no-wrap theme in/out via dispatch. Using a CM6
+// extension (rather than injecting a <style> tag into `document`) means the
+// styles are mounted relative to the EditorView's own root, so this also
+// works when the note is opened in a secondary window (where the editor's
+// DOM lives in a different Document than the plugin's module-level
+// `document` global).
 const lineWrapCompartment = new Compartment();
 
-// Style element ID for CSS injection
-const STYLE_ID = 'linewrap-toggle-editor-styles';
+// Styles for elements inside the CM6 root (.cm-editor and its descendants).
+const noWrapTheme = EditorView.theme({
+	'&': {
+		overflow: 'hidden !important',
+		maxWidth: '100% !important',
+	},
 
-// Inject CSS to disable wrap for all content
-function injectNoWrapStyles(): void {
-	removeStyles();
+	'.cm-scroller': {
+		overflowX: 'auto !important',
+		overflowY: 'auto !important',
+		scrollbarGutter: 'stable !important',
+	},
 
-	const style = document.createElement('style');
-	style.id = STYLE_ID;
-	style.textContent = `
-		/* Line wrap toggle - Editor No-Wrap Styles */
+	'.cm-content, .cm-content.cm-lineWrapping': {
+		whiteSpace: 'pre !important',
+		wordWrap: 'normal !important',
+		overflowWrap: 'normal !important',
+		wordBreak: 'normal !important',
+		width: 'max-content !important',
+	},
 
-		/* Constrain outer containers */
-		.editor {
-			overflow: hidden !important;
-			max-width: 100% !important;
-		}
-		.editor > div {
-			overflow: hidden !important;
-			max-width: 100% !important;
-		}
-		.cm-editor {
-			overflow: hidden !important;
-			max-width: 100% !important;
-		}
+	'.cm-line': {
+		whiteSpace: 'pre !important',
+		wordWrap: 'normal !important',
+		overflowWrap: 'normal !important',
+		wordBreak: 'normal !important',
+		boxSizing: 'border-box !important',
+		marginInlineEnd: '40px !important',
+	},
 
-		/* Scroller handles horizontal overflow */
-		.cm-scroller {
-			overflow-x: auto !important;
-			overflow-y: auto !important;
-			scrollbar-gutter: stable !important;
-		}
+	// Table cell
+	'.cm-tw-text': {
+		whiteSpace: 'pre !important',
+		wordWrap: 'normal !important',
+		overflowWrap: 'normal !important',
+		wordBreak: 'normal !important',
+		boxSizing: 'border-box !important',
+	},
+});
 
-		/* Content expands to fit longest line */
-		.cm-content,
-		.cm-content.cm-lineWrapping {
-			white-space: pre !important;
-			word-wrap: normal !important;
-			overflow-wrap: normal !important;
-			word-break: normal !important;
-			width: max-content !important;
-		}
-
-		/* Lines */
-		.cm-line {
-			white-space: pre !important;
-			word-wrap: normal !important;
-			overflow-wrap: normal !important;
-			word-break: normal !important;
-			box-sizing: border-box !important;
-			margin-inline-end: 40px !important;
-		}
-
-		/* Table cell */
-		.cm-tw-text {
-			white-space: pre !important;
-			word-wrap: normal !important;
-			overflow-wrap: normal !important;
-			word-break: normal !important;
-			box-sizing: border-box !important;
-		}
-	`;
-
-	document.head.appendChild(style);
-}
-
-function removeStyles(): void {
-	const style = document.getElementById(STYLE_ID);
-	if (style) {
-		style.remove();
-	}
-}
-
+/** CodeMirror 6 content script entry point: wires the no-wrap theme up to the editor. */
 export default (context: ContentScriptContext) => {
 	return {
+		/** Applies the initial no-wrap state to a newly created editor and starts listening for setting changes. */
 		plugin: async (codeMirrorWrapper: any) => {
 			// Only work with CodeMirror 6
 			if (!codeMirrorWrapper.cm6) {
@@ -99,11 +74,11 @@ export default (context: ContentScriptContext) => {
 			// Get the EditorView instance
 			const editorView = codeMirrorWrapper.cm6;
 
-			// Apply initial style based on settings
-			applyWrapSettings(settings, editorView);
-
-			// Add empty extension in compartment for future reconfiguration
-			codeMirrorWrapper.addExtension(lineWrapCompartment.of([]));
+			// Add the compartment, initialized to the setting's current state
+			codeMirrorWrapper.addExtension(
+				lineWrapCompartment.of(settings.disableInMarkdownEditor ? noWrapTheme : [])
+			);
+			applyContainerStyles(editorView, settings.disableInMarkdownEditor);
 
 			startSettingsListener(context, editorView, settings);
 		},
@@ -114,6 +89,7 @@ export default (context: ContentScriptContext) => {
 	};
 };
 
+/** Long-polls the main plugin process for editor setting changes and re-applies them as they arrive. */
 function startSettingsListener(
 	context: ContentScriptContext,
 	editorView: any,
@@ -145,17 +121,59 @@ function startSettingsListener(
 	waitForSettingsChange();
 }
 
-function applyWrapSettings(settings: PluginSettings, editorView?: any): void {
-	if (settings.disableInMarkdownEditor) {
-		injectNoWrapStyles();
-	} else {
-		removeStyles();
-		if (editorView && editorView.contentDOM) {
-			cleanupInlineStyles(editorView.contentDOM);
+/** Reconfigures the theme compartment and container styles to match the given settings. */
+function applyWrapSettings(settings: PluginSettings, editorView: any): void {
+	const disableWrap = settings.disableInMarkdownEditor;
+
+	editorView.dispatch({
+		effects: lineWrapCompartment.reconfigure(disableWrap ? noWrapTheme : []),
+	});
+	applyContainerStyles(editorView, disableWrap);
+
+	if (!disableWrap && editorView.contentDOM) {
+		cleanupInlineStyles(editorView.contentDOM);
+	}
+}
+
+// `.editor` and its wrapping <div> are ancestors of `.cm-editor`, so they sit
+// outside the CM6 root and can't be reached via EditorView.theme(). Style
+// them directly, walking up from the editor's own DOM node (never the global
+// `document`) so this is correct regardless of which window/document the
+// editor actually lives in.
+function findWrapContainers(editorDom: HTMLElement): HTMLElement[] {
+	const containers: HTMLElement[] = [];
+	let node: HTMLElement | null = editorDom.parentElement;
+
+	while (node && node !== node.ownerDocument.body) {
+		containers.push(node);
+		if (node.classList.contains('editor')) {
+			break;
+		}
+		node = node.parentElement;
+	}
+
+	return containers;
+}
+
+/** Applies or clears the no-wrap overflow/max-width styles on the editor's ancestor containers. */
+function applyContainerStyles(editorView: any, disableWrap: boolean): void {
+	if (!editorView || !editorView.dom) {
+		return;
+	}
+
+	const containers = findWrapContainers(editorView.dom);
+	for (const container of containers) {
+		if (disableWrap) {
+			container.style.setProperty('overflow', 'hidden', 'important');
+			container.style.setProperty('max-width', '100%', 'important');
+		} else {
+			container.style.removeProperty('overflow');
+			container.style.removeProperty('max-width');
 		}
 	}
 }
 
+/** Removes leftover width/min-width inline styles set on the content and its lines when re-enabling wrap. */
 function cleanupInlineStyles(contentDOM: HTMLElement): void {
 	contentDOM.style.removeProperty('width');
 	contentDOM.style.removeProperty('min-width');

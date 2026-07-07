@@ -16,32 +16,42 @@ const viewerSettingsWaiters = new Set<(settings: ViewerSettings) => void>();
 let lastEditorSettings: EditorSettings | undefined;
 let lastViewerSettings: ViewerSettings | undefined;
 
+/** Extracts the editor-relevant subset of the full settings object. */
 function buildEditorSettings(settings: PluginSettings): EditorSettings {
 	return {
 		disableInMarkdownEditor: settings.disableInMarkdownEditor,
 	};
 }
 
+/** Extracts the viewer-relevant subset of the full settings object. */
 function buildViewerSettings(settings: PluginSettings): ViewerSettings {
 	return {
 		disableInViewer: settings.disableInViewer,
 	};
 }
 
+/** Compares two editor settings snapshots for equality. */
 function editorSettingsEqual(a?: EditorSettings, b?: EditorSettings): boolean {
 	return !!a && !!b && a.disableInMarkdownEditor === b.disableInMarkdownEditor;
 }
 
+/** Compares two viewer settings snapshots for equality. */
 function viewerSettingsEqual(a?: ViewerSettings, b?: ViewerSettings): boolean {
 	return !!a && !!b && a.disableInViewer === b.disableInViewer;
 }
 
+/**
+ * Returns a promise that resolves the next time settings change, by
+ * registering the resolver in `waiters`. Used to implement long-polling for
+ * content scripts that ask to be notified of setting changes.
+ */
 function waitForSettingsChange<T>(waiters: Set<(settings: T) => void>): Promise<T> {
 	return new Promise(resolve => {
 		waiters.add(resolve);
 	});
 }
 
+/** Resolves every pending `waitForSettingsChange` promise with the new settings. */
 function resolveWaiters<T>(waiters: Set<(settings: T) => void>, settings: T): void {
 	for (const resolve of waiters) {
 		resolve(settings);
@@ -49,6 +59,7 @@ function resolveWaiters<T>(waiters: Set<(settings: T) => void>, settings: T): vo
 	waiters.clear();
 }
 
+/** Returns the last known editor settings, fetching them once if not yet cached. */
 async function getEditorSettingsSnapshot(): Promise<EditorSettings> {
 	if (lastEditorSettings) {
 		return lastEditorSettings;
@@ -59,6 +70,7 @@ async function getEditorSettingsSnapshot(): Promise<EditorSettings> {
 	return lastEditorSettings;
 }
 
+/** Returns the last known viewer settings, fetching them once if not yet cached. */
 async function getViewerSettingsSnapshot(): Promise<ViewerSettings> {
 	if (lastViewerSettings) {
 		return lastViewerSettings;
@@ -254,7 +266,10 @@ joplin.plugins.register({
 	},
 });
 
-// Desktop: Context-aware toggle (used by Tools menu)
+/**
+ * Desktop context-aware toggle used by the Tools menu: toggles whichever
+ * pane(s) are currently visible (editor, viewer, or both in split view).
+ */
 async function toggleLineWrap(): Promise<void> {
 	try {
 		const settings = await getSettings();
@@ -283,7 +298,7 @@ async function toggleLineWrap(): Promise<void> {
 	}
 }
 
-// Toggle editor line wrap only
+/** Toggles line wrap in the markdown editor only. */
 async function toggleEditorLineWrap(): Promise<void> {
 	try {
 		const settings = await getSettings();
@@ -294,7 +309,7 @@ async function toggleEditorLineWrap(): Promise<void> {
 	}
 }
 
-// Toggle viewer line wrap only
+/** Toggles line wrap in the note viewer only. */
 async function toggleViewerLineWrap(): Promise<void> {
 	try {
 		const settings = await getSettings();

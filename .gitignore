@@ -3,6 +3,7 @@ dist/
 *.jpl
 *.tgz
 publish/
+.claude/
 .vscode/
 .DS_Store
 npm-debug.log*
