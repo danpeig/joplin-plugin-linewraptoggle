@@ -32,7 +32,7 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 - **1.1 (under development - release with Joplin 3.7)**
     - Disable line wrap from rendered table cells in the new markdown editor (Joplin 3.7 new feature)
     - New logo and icons
-    - Tested on Joplin Desktop 3.7.6 and Android 3.7.2
+    - Tested on Joplin Desktop 3.7.10 and Android 3.7.4
     - Fixed plugin not working in an external window
 
 - **1.0 (02/03/2026)**
