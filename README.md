@@ -12,14 +12,14 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 - The plugin does not modify note content - all styling is applied externally
 - Separate control for markdown editor and viewer
 - State persists across Joplin sessions
-- Acts inside tables and code blocks
+- Works inside tables and code blocks
 - Cross-platform support (Desktop and Mobile)
 
 ## Limitations
 
 - Toolbar button visibility changes require a Joplin restart to take effect
 - Rich text editor is not currently supported, let me know if you need the plugin to work with it.
-- iOS is supported but Joplin team must manually approve it to be available in the platform.
+- iOS is supported but Joplin developers limit the plugins available for the platform. Ask them if you need this on the iPhone.
 
 ## Compatibility
 
@@ -76,13 +76,13 @@ This plugin does not modify color schemes, fonts or any other visual styles or c
 
 ### Toggle line wrap
 
-**Via Toolbar:**
+**Via toolbar:**
 - Click the line wrap toggle button in the editor toolbar (if enabled in settings)
 
-**Via Menu (Desktop):**
+**Via menu (Desktop):**
 - Go to `Tools > Toggle line wrap`
 
-**Via Toolbar (Mobile):**
+**Via toolbar (Mobile):**
 - Two toggle buttons appear in the note toolbar (three dots menu area), one for the editor and another for the viewer
 
 ### Configuration
@@ -105,7 +105,7 @@ This plugin was partially coded with the help of Claude Opus 4.5, Claude Sonnet 
 
 ## Author
 
-Daniel BP
+[Daniel BP](https://www.danbp.org)
 
 ## Development
 
