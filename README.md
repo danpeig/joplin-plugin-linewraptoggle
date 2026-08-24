@@ -17,7 +17,7 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 
 ## Limitations
 
-- Toolbar button visibility changes require a Joplin restart to take effect
+- Toolbar button visibility changes require a Joplin restart to take effect.
 - Rich text editor is not currently supported, let me know if you need the plugin to work with it.
 - iOS is supported but Joplin developers limit the plugins available for the platform. Ask them if you need this on the iPhone.
 
