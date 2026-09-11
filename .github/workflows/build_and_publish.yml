@@ -59,6 +59,7 @@ jobs:
         run: npm run dist
 
       - name: Publish to npm
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public
+        # Deprecated NPM token functions
+        # env:
+          # NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
