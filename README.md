@@ -32,7 +32,7 @@ A Joplin plugin that provides simple control over line wrapping behavior in mark
 - **1.1 (11/09/2026)**
     - Toggle line wrap in the visual table editor (Joplin 3.7 new feature)
     - New logo and icons
-    - Tested on Joplin Desktop 3.7.16 (Linux and Windows) and Android 3.7.10
+    - Tested on Joplin Desktop 3.7.18 (Linux and Windows) and Android 3.7.10
     - Bug fix: Plugin not working in an external window
 
 - **1.0 (02/03/2026)**
